@@ -1,0 +1,54 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+  Brand tokens — single source of truth.
+  Values are the exact brand-book hex codes (kept literal so the palette
+  matches the brief precisely); OKLCH equivalents are noted for reference.
+  Never reference raw hex outside this block — always use var(--...).
+*/
+:root {
+  --color-jungle: #1a3633;        /* Jungle Green  — primary dark / buttons     ~oklch(32% 0.03 168) */
+  --color-silver: #9caba1;        /* Quick Silver  — secondary text / details   ~oklch(71% 0.02 158) */
+  --color-coldblack: #090a0c;     /* Cold Black    — deepest background          ~oklch(15% 0.005 260) */
+  --color-feldgrau: #445a58;      /* Feldgrau      — mid-tone / gradients        ~oklch(43% 0.02 180) */
+  --color-intense-white: #f8f9fa; /* Intense White — light bg / text on dark     ~oklch(98% 0.001 250) */
+
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-coldblack);
+  color: var(--color-intense-white);
+  font-family: 'Inter', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-jungle);
+  color: var(--color-intense-white);
+}
+
+/* Thin diagonal-friendly focus ring for keyboard users */
+:focus-visible {
+  outline: 2px solid var(--color-silver);
+  outline-offset: 3px;
+}
+
+@layer utilities {
+  /* Fine grain/texture separator used between dark sections */
+  .hairline {
+    border-color: color-mix(in srgb, var(--color-silver) 18%, transparent);
+  }
+}
