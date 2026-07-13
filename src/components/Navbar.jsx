@@ -100,9 +100,9 @@ export default function Navbar() {
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
               transition={{ type: 'spring', stiffness: 300, damping: 34 }}
-              className="fixed right-0 top-0 z-50 flex h-full w-[70%] max-w-xs flex-col border-l hairline bg-glass-panel backdrop-blur-xl"
+              className="fixed right-0 top-0 z-50 flex h-full w-[56%] max-w-[13.5rem] flex-col border-l hairline bg-glass-panel backdrop-blur-xl"
             >
-              <div className="flex h-20 items-center justify-end px-6">
+              <div className="flex h-20 items-center justify-end px-5">
                 <button
                   type="button"
                   onClick={() => setOpen(false)}
@@ -113,7 +113,7 @@ export default function Navbar() {
                 </button>
               </div>
 
-              <ul className="flex flex-col gap-1 px-6">
+              <ul className="flex flex-col gap-1 px-5">
                 {links.map((l, i) => (
                   <motion.li
                     key={l.to}
