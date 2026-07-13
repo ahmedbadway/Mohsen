@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
-import { List, X } from 'phosphor-react'
+import { List, X } from '@phosphor-icons/react'
 import Logo from './Logo.jsx'
 
 const links = [
@@ -76,10 +76,10 @@ export default function Navbar() {
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            initial={{ y: '-100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '-100%' }}
+            transition={{ type: 'spring', stiffness: 260, damping: 32 }}
             className="fixed inset-0 z-50 flex flex-col bg-coldblack md:hidden"
           >
             <div className="flex h-20 items-center justify-between px-6">

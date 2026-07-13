@@ -1,15 +1,30 @@
+import { useState } from 'react'
 import { motion } from 'motion/react'
-import { ArrowUpRight } from 'phosphor-react'
+import { ArrowsClockwise, ArrowLeft } from '@phosphor-icons/react'
 
 /**
- * Project card — SVG placeholder image (swappable from /public/assets),
- * title and short description. `image` is a filename under assets/.
+ * Project card with a 3D flip interaction. The front shows the project image
+ * and title; tapping/clicking flips the card 180° to reveal details on the
+ * back. Fully keyboard-accessible (it's a button; Enter/Space toggle it).
+ *
+ * The 3D properties (perspective, preserve-3d, backface-visibility) are set
+ * via Tailwind arbitrary classes so Autoprefixer adds the -webkit- prefixes
+ * iOS Safari needs.
  */
-export default function ProjectCard({ image, title, description, index = 0 }) {
+export default function ProjectCard({
+  image,
+  title,
+  description,
+  details,
+  category,
+  year,
+  index = 0,
+}) {
+  const [flipped, setFlipped] = useState(false)
   const src = `${import.meta.env.BASE_URL}assets/${image}`
 
   return (
-    <motion.article
+    <motion.div
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
@@ -19,30 +34,62 @@ export default function ProjectCard({ image, title, description, index = 0 }) {
         stiffness: 260,
         damping: 30,
       }}
-      className="group flex flex-col overflow-hidden border hairline bg-jungle/10 transition-colors duration-300 hover:bg-jungle/25"
+      className="[perspective:1600px]"
     >
-      <div className="relative overflow-hidden">
-        <img
-          src={src}
-          alt={`${title} — project preview`}
-          loading="lazy"
-          className="aspect-[4/3] w-full object-cover transition-transform duration-500 ease-out group-hover:scale-[1.04]"
-        />
-      </div>
-
-      <div className="flex flex-1 flex-col p-6">
-        <div className="flex items-start justify-between gap-4">
-          <h3 className="font-display text-lg font-semibold text-intense-white">
-            {title}
-          </h3>
-          <ArrowUpRight
-            size={20}
-            weight="bold"
-            className="mt-0.5 shrink-0 text-feldgrau transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-silver"
+      <motion.button
+        type="button"
+        onClick={() => setFlipped((f) => !f)}
+        aria-pressed={flipped}
+        aria-label={
+          flipped ? `Hide details for ${title}` : `Show details for ${title}`
+        }
+        animate={{ rotateY: flipped ? 180 : 0 }}
+        transition={{ type: 'spring', stiffness: 220, damping: 26 }}
+        className="relative block aspect-[4/5] w-full cursor-pointer text-left [transform-style:preserve-3d]"
+      >
+        {/* Front */}
+        <span className="absolute inset-0 flex flex-col overflow-hidden border hairline bg-jungle/10 [backface-visibility:hidden]">
+          <img
+            src={src}
+            alt={`${title} — project preview`}
+            loading="lazy"
+            className="min-h-0 w-full flex-1 object-cover"
           />
-        </div>
-        <p className="mt-3 text-sm leading-relaxed text-silver">{description}</p>
-      </div>
-    </motion.article>
+          <span className="flex items-center justify-between gap-3 p-6">
+            <span className="flex flex-col">
+              <span className="font-display text-lg font-semibold text-intense-white">
+                {title}
+              </span>
+              <span className="mt-1 text-xs uppercase tracking-[0.2em] text-feldgrau">
+                {category} &middot; {year}
+              </span>
+            </span>
+            <span className="inline-flex items-center gap-1.5 text-xs font-medium text-silver">
+              <ArrowsClockwise size={16} weight="bold" />
+              Details
+            </span>
+          </span>
+        </span>
+
+        {/* Back */}
+        <span className="absolute inset-0 flex flex-col justify-between border hairline bg-jungle/30 p-6 [backface-visibility:hidden] [transform:rotateY(180deg)]">
+          <span>
+            <span className="text-xs font-semibold uppercase tracking-[0.24em] text-silver">
+              {category} &middot; {year}
+            </span>
+            <span className="mt-3 block font-display text-xl font-semibold text-intense-white">
+              {title}
+            </span>
+            <span className="mt-4 block text-sm leading-relaxed text-silver">
+              {details || description}
+            </span>
+          </span>
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium text-feldgrau">
+            <ArrowLeft size={16} weight="bold" />
+            Tap to flip back
+          </span>
+        </span>
+      </motion.button>
+    </motion.div>
   )
 }

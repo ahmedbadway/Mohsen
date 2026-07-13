@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Phone, EnvelopeSimple, MapPin, Globe } from 'phosphor-react'
+import { Phone, EnvelopeSimple, MapPin, Globe } from '@phosphor-icons/react'
 import Logo from './Logo.jsx'
 
 const contact = [
