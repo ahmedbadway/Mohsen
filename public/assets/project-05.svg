@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" role="img" aria-label="Project placeholder">
+  <defs>
+    <linearGradient id="g5" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#445A58"/>
+      <stop offset="0.5" stop-color="#1A3633"/>
+      <stop offset="1" stop-color="#090A0C"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#g5)"/>
+  <g stroke="#9CABA1" stroke-opacity="0.28" fill="none" stroke-width="1.5">
+    <path d="M80 520 L80 200 L360 200"/>
+    <path d="M360 200 L360 520"/>
+    <path d="M440 520 L440 120 L720 120 L720 520"/>
+  </g>
+  <text x="48" y="72" fill="#F8F9FA" font-family="Sora, sans-serif" font-size="26" font-weight="700" letter-spacing="4">05</text>
+  <text x="48" y="556" fill="#9CABA1" font-family="Sora, sans-serif" font-size="15" font-weight="600" letter-spacing="3">HOSNI ARC STUDIO</text>
+</svg>
