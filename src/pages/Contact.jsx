@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
-import { Phone, EnvelopeSimple, MapPin, Globe } from 'phosphor-react'
+import { Phone, EnvelopeSimple, MapPin, Globe } from '@phosphor-icons/react'
+import { pageVariants, pageTransition } from '../utils/motion.js'
 
 // Replace YOUR_FORM_ID with the real Formspree endpoint after creating a
 // form at https://formspree.io (see README). Until then the form posts to a
@@ -33,10 +34,11 @@ const fieldClass =
 export default function Contact() {
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={pageTransition}
       className="mx-auto max-w-content px-6 py-20"
     >
       <header className="max-w-2xl">

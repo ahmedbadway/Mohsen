@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
-import { ArrowRight } from 'phosphor-react'
+import { ArrowRight } from '@phosphor-icons/react'
+import { pageVariants, pageTransition } from '../utils/motion.js'
 
 const heroBg = `${import.meta.env.BASE_URL}assets/hero-bg.svg`
 
@@ -12,10 +13,11 @@ const fadeUp = {
 export default function Home() {
   return (
     <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.4 }}
+      variants={pageVariants}
+      initial="initial"
+      animate="animate"
+      exit="exit"
+      transition={pageTransition}
     >
       {/* Hero */}
       <section className="relative overflow-hidden">
