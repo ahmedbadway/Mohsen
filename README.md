@@ -43,18 +43,15 @@ Tailwind (`tailwind.config.js`):
 Fonts: **Sora** (geometric headings/logotype, a substitute for TT Hoves Pro)
 and **Inter** (body), loaded from Google Fonts.
 
-## Connecting the contact form (Formspree)
+## Contact form (WhatsApp)
 
-1. Create a free account at [formspree.io](https://formspree.io).
-2. Create a new form and copy its **Form ID**.
-3. In `src/pages/Contact.jsx`, replace `YOUR_FORM_ID` in the
-   `FORMSPREE_ENDPOINT` constant:
+The contact form has no backend — on submit it opens **WhatsApp** with the
+name, message and optional phone prefilled, addressed to the studio number.
 
-   ```js
-   const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xxxxxxx'
-   ```
-
-Until this is set, the form will not deliver email.
+To change the destination number, edit `WHATSAPP_NUMBER` in
+`src/pages/Contact.jsx` (and the matching `wa.me` links in
+`src/components/Footer.jsx`). Use international format with no `+` and no
+leading `0` — e.g. `+20 010 1607 0633` becomes `201016070633`.
 
 ## Replacing project images
 
