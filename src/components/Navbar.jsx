@@ -35,7 +35,8 @@ export default function Navbar() {
     ].join(' ')
 
   return (
-    <header className="sticky top-0 z-50 border-b hairline bg-coldblack/80 backdrop-blur-md">
+    <>
+      <header className="sticky top-0 z-40 border-b hairline bg-coldblack/80 backdrop-blur-md">
       <nav className="mx-auto flex h-20 max-w-content items-center justify-between px-6">
         <Logo />
 
@@ -71,8 +72,15 @@ export default function Navbar() {
           <List size={26} weight="light" />
         </button>
       </nav>
+      </header>
 
-      {/* Mobile menu overlay */}
+      {/*
+        Mobile menu overlay — rendered OUTSIDE <header> on purpose. The header
+        uses backdrop-filter (backdrop-blur), which would otherwise become the
+        containing block for this position:fixed element and clip it to the
+        header's height instead of the viewport. As a sibling it covers the
+        full screen opaquely.
+      */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -94,14 +102,14 @@ export default function Navbar() {
               </button>
             </div>
 
-            <ul className="flex flex-1 flex-col justify-center gap-2 px-6">
+            <ul className="flex flex-col gap-1 px-6 pt-4">
               {links.map((l, i) => (
                 <motion.li
                   key={l.to}
-                  initial={{ opacity: 0, x: -24 }}
+                  initial={{ opacity: 0, x: -18 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{
-                    delay: 0.08 + i * 0.06,
+                    delay: 0.06 + i * 0.05,
                     type: 'spring',
                     stiffness: 320,
                     damping: 30,
@@ -112,7 +120,7 @@ export default function Navbar() {
                     end={l.end}
                     className={({ isActive }) =>
                       [
-                        'block border-b hairline py-5 font-display text-3xl font-semibold tracking-wide',
+                        'block border-b hairline py-3.5 font-display text-xl font-semibold tracking-wide',
                         isActive ? 'text-intense-white' : 'text-silver',
                       ].join(' ')
                     }
@@ -125,6 +133,6 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   )
 }
