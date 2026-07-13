@@ -51,4 +51,19 @@ body {
   .hairline {
     border-color: color-mix(in srgb, var(--color-silver) 18%, transparent);
   }
+
+  /*
+    Translucent "glass" surfaces built with color-mix (Tailwind 3.4's
+    /opacity modifier doesn't apply to CSS-variable colors). Pair with
+    backdrop-blur for the frosted effect.
+  */
+  .bg-glass-strong {
+    background-color: color-mix(in srgb, var(--color-coldblack) 82%, transparent);
+  }
+  .bg-glass-panel {
+    background-color: color-mix(in srgb, var(--color-coldblack) 68%, transparent);
+  }
+  .bg-scrim {
+    background-color: color-mix(in srgb, var(--color-coldblack) 55%, transparent);
+  }
 }

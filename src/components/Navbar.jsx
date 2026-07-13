@@ -36,7 +36,7 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 border-b hairline bg-coldblack/80 backdrop-blur-md">
+      <header className="sticky top-0 z-30 border-b hairline bg-glass-strong backdrop-blur-md">
       <nav className="mx-auto flex h-20 max-w-content items-center justify-between px-6">
         <Logo />
 
@@ -75,62 +75,74 @@ export default function Navbar() {
       </header>
 
       {/*
-        Mobile menu overlay — rendered OUTSIDE <header> on purpose. The header
-        uses backdrop-filter (backdrop-blur), which would otherwise become the
-        containing block for this position:fixed element and clip it to the
-        header's height instead of the viewport. As a sibling it covers the
-        full screen opaquely.
+        Mobile menu — a compact translucent drawer sliding in from the right,
+        over a dimmed backdrop. Rendered OUTSIDE <header> so its fixed
+        positioning is relative to the viewport (the header's backdrop-filter
+        would otherwise become its containing block).
       */}
       <AnimatePresence>
         {open && (
-          <motion.div
-            initial={{ y: '-100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '-100%' }}
-            transition={{ type: 'spring', stiffness: 260, damping: 32 }}
-            className="fixed inset-0 z-50 flex flex-col bg-coldblack md:hidden"
-          >
-            <div className="flex h-20 items-center justify-between px-6">
-              <Logo onClick={() => setOpen(false)} />
-              <button
-                type="button"
-                onClick={() => setOpen(false)}
-                aria-label="Close menu"
-                className="text-intense-white"
-              >
-                <X size={26} weight="light" />
-              </button>
-            </div>
+          <div className="md:hidden">
+            {/* Dimmed backdrop — click to close */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setOpen(false)}
+              className="fixed inset-0 z-40 bg-scrim"
+              aria-hidden="true"
+            />
 
-            <ul className="flex flex-col gap-1 px-6 pt-4">
-              {links.map((l, i) => (
-                <motion.li
-                  key={l.to}
-                  initial={{ opacity: 0, x: -18 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{
-                    delay: 0.06 + i * 0.05,
-                    type: 'spring',
-                    stiffness: 320,
-                    damping: 30,
-                  }}
+            {/* Translucent drawer */}
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 300, damping: 34 }}
+              className="fixed right-0 top-0 z-50 flex h-full w-[70%] max-w-xs flex-col border-l hairline bg-glass-panel backdrop-blur-xl"
+            >
+              <div className="flex h-20 items-center justify-end px-6">
+                <button
+                  type="button"
+                  onClick={() => setOpen(false)}
+                  aria-label="Close menu"
+                  className="text-intense-white"
                 >
-                  <NavLink
-                    to={l.to}
-                    end={l.end}
-                    className={({ isActive }) =>
-                      [
-                        'block border-b hairline py-3.5 font-display text-xl font-semibold tracking-wide',
-                        isActive ? 'text-intense-white' : 'text-silver',
-                      ].join(' ')
-                    }
+                  <X size={24} weight="light" />
+                </button>
+              </div>
+
+              <ul className="flex flex-col gap-1 px-6">
+                {links.map((l, i) => (
+                  <motion.li
+                    key={l.to}
+                    initial={{ opacity: 0, x: 18 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{
+                      delay: 0.06 + i * 0.05,
+                      type: 'spring',
+                      stiffness: 320,
+                      damping: 30,
+                    }}
                   >
-                    {l.label}
-                  </NavLink>
-                </motion.li>
-              ))}
-            </ul>
-          </motion.div>
+                    <NavLink
+                      to={l.to}
+                      end={l.end}
+                      className={({ isActive }) =>
+                        [
+                          'block border-b hairline py-3 font-display text-lg font-semibold tracking-wide',
+                          isActive ? 'text-intense-white' : 'text-silver',
+                        ].join(' ')
+                      }
+                    >
+                      {l.label}
+                    </NavLink>
+                  </motion.li>
+                ))}
+              </ul>
+            </motion.div>
+          </div>
         )}
       </AnimatePresence>
     </>

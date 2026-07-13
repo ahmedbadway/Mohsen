@@ -1,9 +1,13 @@
 import { Link } from 'react-router-dom'
-import { Phone, EnvelopeSimple, MapPin, Globe } from '@phosphor-icons/react'
+import { WhatsappLogo, EnvelopeSimple, MapPin, Globe } from '@phosphor-icons/react'
 import Logo from './Logo.jsx'
 
 const contact = [
-  { icon: Phone, label: '+20 01016070633', href: 'tel:+2001016070633' },
+  {
+    icon: WhatsappLogo,
+    label: '+20 01016070633',
+    href: 'https://wa.me/201016070633',
+  },
   {
     icon: EnvelopeSimple,
     label: 'Hosni@hosniarcstudio.com',
