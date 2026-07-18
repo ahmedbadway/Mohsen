@@ -7,7 +7,7 @@ import { pageVariants, pageTransition } from '../utils/motion.js'
 // name) — the poster image shows instantly and stays visible until the
 // video is loaded, or if no video file is present yet.
 const heroVideo = `${import.meta.env.BASE_URL}assets/hero-bg.mp4`
-const heroPoster = `${import.meta.env.BASE_URL}assets/hero-bg.png`
+const heroPoster = `${import.meta.env.BASE_URL}assets/hero-bg.svg`
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
