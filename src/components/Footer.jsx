@@ -31,7 +31,7 @@ export default function Footer() {
       <div className="mx-auto max-w-content px-6 py-14">
         <div className="flex flex-col justify-between gap-10 md:flex-row">
           <div className="max-w-xs">
-            <Logo withSub />
+            <Logo />
             <p className="mt-5 text-sm leading-relaxed text-silver">
               Tomorrow&apos;s innovation, today&apos;s reality.
             </p>
