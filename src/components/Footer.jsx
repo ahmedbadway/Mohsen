@@ -1,22 +1,27 @@
 import { Link } from 'react-router-dom'
-import { WhatsappLogo, EnvelopeSimple, MapPin, Globe } from '@phosphor-icons/react'
+import { Phone, WhatsappLogo, EnvelopeSimple, MapPin, Globe } from '@phosphor-icons/react'
 import Logo from './Logo.jsx'
 
 const contact = [
   {
+    icon: Phone,
+    label: '+201005566336',
+    href: 'tel:+201005566336',
+  },
+  {
     icon: WhatsappLogo,
-    label: '+20 01016070633',
-    href: 'https://wa.me/201016070633',
+    label: '+201005566336',
+    href: 'https://wa.me/201005566336',
   },
   {
     icon: EnvelopeSimple,
-    label: 'Hosni@hosniarcstudio.com',
-    href: 'mailto:Hosni@hosniarcstudio.com',
+    label: 'Hosniarcstudio@gmail.com',
+    href: 'mailto:Hosniarcstudio@gmail.com',
   },
   {
     icon: Globe,
-    label: 'hosniarcstudio.com',
-    href: 'https://hosniarcstudio.com',
+    label: 'ahmedbadway.github.io/Mohsen',
+    href: 'https://ahmedbadway.github.io/Mohsen/',
   },
 ]
 
@@ -50,11 +55,7 @@ export default function Footer() {
             ))}
             <li className="inline-flex items-start gap-3 text-sm text-silver">
               <MapPin size={18} weight="light" className="mt-0.5 text-feldgrau" />
-              <span>
-                Mansoura, Jehan St.,
-                <br />
-                Jehan Medical Center, 2nd Floor
-              </span>
+              <span>Cairo</span>
             </li>
           </ul>
         </div>

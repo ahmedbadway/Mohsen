@@ -3,7 +3,11 @@ import { motion } from 'motion/react'
 import { ArrowRight } from '@phosphor-icons/react'
 import { pageVariants, pageTransition } from '../utils/motion.js'
 
-const heroBg = `${import.meta.env.BASE_URL}assets/hero-bg.png`
+// Hero background video. Swap assets/hero-bg.mp4 with your own clip (same
+// name) — the poster image shows instantly and stays visible until the
+// video is loaded, or if no video file is present yet.
+const heroVideo = `${import.meta.env.BASE_URL}assets/hero-bg.mp4`
+const heroPoster = `${import.meta.env.BASE_URL}assets/hero-bg.svg`
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -21,11 +25,16 @@ export default function Home() {
     >
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <img
-          src={heroBg}
-          alt=""
-          aria-hidden="true"
+        <video
           className="absolute inset-0 h-full w-full object-cover"
+          src={heroVideo}
+          poster={heroPoster}
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-coldblack via-coldblack/70 to-transparent" />
 
