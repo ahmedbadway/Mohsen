@@ -1,12 +1,15 @@
 import { Routes, Route, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect, lazy, Suspense } from 'react'
 import { AnimatePresence } from 'motion/react'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
 import Home from './pages/Home.jsx'
-import Projects from './pages/Projects.jsx'
-import Profile from './pages/Profile.jsx'
-import Contact from './pages/Contact.jsx'
+
+// Home stays eager (it's the landing page / LCP); the rest are code-split so
+// they only download when navigated to.
+const Projects = lazy(() => import('./pages/Projects.jsx'))
+const Profile = lazy(() => import('./pages/Profile.jsx'))
+const Contact = lazy(() => import('./pages/Contact.jsx'))
 
 export default function App() {
   const location = useLocation()
@@ -21,12 +24,14 @@ export default function App() {
       <Navbar />
       <main className="flex-1">
         <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
+          <Suspense fallback={null}>
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<Home />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/contact" element={<Contact />} />
+            </Routes>
+          </Suspense>
         </AnimatePresence>
       </main>
       <Footer />

@@ -6,4 +6,15 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   base: './',
   plugins: [react()],
+  build: {
+    rollupOptions: {
+      output: {
+        // Split the rarely-changing vendor libraries into their own chunk so
+        // browsers keep them cached across app deploys.
+        manualChunks: {
+          vendor: ['react', 'react-dom', 'react-router-dom', 'motion'],
+        },
+      },
+    },
+  },
 })
