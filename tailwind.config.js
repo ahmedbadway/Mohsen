@@ -11,7 +11,7 @@ export default {
         silver: 'var(--color-silver)',
         coldblack: 'var(--color-coldblack)',
         feldgrau: 'var(--color-feldgrau)',
-        white: 'var(--color-intense-white)',
+        'intense-white': 'var(--color-intense-white)',
       },
       fontFamily: {
         // Sora = geometric logotype/headings (TT Hoves Pro substitute),

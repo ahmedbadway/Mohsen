@@ -1,9 +1,9 @@
 import { Link } from 'react-router-dom'
 
-// External logo file. Swap public/assets/images/logo.svg with your own
+// External logo file. Swap public/assets/images/logo.jpeg with your own
 // artwork (same name) — it renders at a fixed height so any replacement
 // keeps the same navbar size automatically.
-const logoSrc = `${import.meta.env.BASE_URL}assets/images/logo.svg`
+const logoSrc = `${import.meta.env.BASE_URL}assets/images/logo.jpeg`
 
 /**
  * Hosni Architecture Studio logotype. Rendered from an external SVG file so
