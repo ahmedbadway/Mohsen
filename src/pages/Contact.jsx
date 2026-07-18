@@ -3,32 +3,38 @@ import { Phone, EnvelopeSimple, MapPin, Globe, WhatsappLogo } from '@phosphor-ic
 import { pageVariants, pageTransition } from '../utils/motion.js'
 
 // Studio WhatsApp number in international format (no +, no leading 0) for
-// wa.me links. Source: +20 01016070633 → Egypt (20) + 1016070633.
-const WHATSAPP_NUMBER = '201016070633'
+// wa.me links. Source: +201005566336 → Egypt (20) + 1005566336.
+const WHATSAPP_NUMBER = '201005566336'
 
 const details = [
   {
+    icon: Phone,
+    label: 'Phone',
+    value: '+201005566336',
+    href: 'tel:+201005566336',
+  },
+  {
     icon: WhatsappLogo,
     label: 'WhatsApp',
-    value: '+20 01016070633',
+    value: '+201005566336',
     href: `https://wa.me/${WHATSAPP_NUMBER}`,
   },
   {
     icon: EnvelopeSimple,
     label: 'Email',
-    value: 'Hosni@hosniarcstudio.com',
-    href: 'mailto:Hosni@hosniarcstudio.com',
+    value: 'Hosniarcstudio@gmail.com',
+    href: 'mailto:Hosniarcstudio@gmail.com',
   },
   {
     icon: MapPin,
     label: 'Address',
-    value: 'Mansoura, Jehan St., Jehan Medical Center, 2nd Floor',
+    value: 'Cairo',
   },
   {
     icon: Globe,
     label: 'Website',
-    value: 'hosniarcstudio.com',
-    href: 'https://hosniarcstudio.com',
+    value: 'ahmedbadway.github.io/Mohsen',
+    href: 'https://ahmedbadway.github.io/Mohsen/',
   },
 ]
 

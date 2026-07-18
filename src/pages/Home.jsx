@@ -3,7 +3,7 @@ import { motion } from 'motion/react'
 import { ArrowRight } from '@phosphor-icons/react'
 import { pageVariants, pageTransition } from '../utils/motion.js'
 
-const heroBg = `${import.meta.env.BASE_URL}assets/hero-bg.svg`
+const heroBg = `${import.meta.env.BASE_URL}assets/hero-bg.png`
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -82,7 +82,7 @@ export default function Home() {
               The Studio
             </h2>
             <p className="mt-4 font-display text-3xl font-bold text-intense-white">
-              +6 years
+              +9 years
               <span className="block text-base font-medium text-feldgrau">
                 shaping spaces that inspire
               </span>
@@ -93,7 +93,7 @@ export default function Home() {
             <p className="text-lg leading-relaxed text-silver md:text-xl">
               <span className="text-intense-white">Hosni Arc Studio&copy;</span> is a
               dynamic and innovative architectural firm with a deep passion for design
-              and a commitment to excellence. For +6 years, we have been dedicated to
+              and a commitment to excellence. For +9 years, we have been dedicated to
               shaping spaces that inspire, while respecting the environment and the
               people who inhabit them.
             </p>

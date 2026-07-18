@@ -41,8 +41,14 @@ export default function Profile() {
             About Us
           </p>
           <h1 className="mt-4 max-w-3xl font-display text-4xl font-extrabold leading-tight tracking-tight text-intense-white sm:text-5xl">
-            Committed to excellence in every project we undertake.
+            At Hosni Architecture Studio, we design exceptional spaces where
+            luxury meets functionality.
           </h1>
+          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-silver md:text-xl">
+            With a passion for timeless architecture and refined interiors, we
+            create bespoke environments that elevate everyday living through
+            precision, elegance, and innovation.
+          </p>
         </div>
       </section>
 
@@ -56,13 +62,9 @@ export default function Profile() {
           </div>
           <div className="md:col-span-8">
             <p className="text-lg leading-relaxed text-silver md:text-xl">
-              Our mission is to provide{' '}
-              <span className="text-intense-white">Hosni Arc Studio&copy;</span> with a
-              comprehensive branding and art direction package that includes a visual
-              identity, creative direction, and brand guidelines. We will work closely
-              with them to understand their unique needs and create a visual identity
-              that reflects their vision and style. At our design studio, we are
-              committed to excellence in every project we undertake.
+              To transform visions into exceptional spaces by delivering bespoke
+              architectural and interior design solutions that blend luxury,
+              functionality, and timeless elegance.
             </p>
           </div>
         </div>
@@ -76,7 +78,7 @@ export default function Profile() {
               What guides our work
             </h2>
             <p className="font-display text-sm font-semibold uppercase tracking-[0.28em] text-silver">
-              +6 years of practice
+              +9 years of practice
             </p>
           </div>
 
