@@ -1,26 +1,29 @@
 import { Link } from 'react-router-dom'
 
+// External logo file. Swap public/assets/images/logo.svg with your own
+// artwork (same name) — it renders at a fixed height so any replacement
+// keeps the same navbar size automatically.
+const logoSrc = `${import.meta.env.BASE_URL}assets/images/logo.svg`
+
 /**
- * HOSNI© logotype. Rendered as a styled Sora-bold wordmark (geometric,
- * hard-edged) rather than a vector, per the brief. The optional sublabel
- * "ARCHITECTURE & INTERIOR DESIGN STUDIO" appears under the mark on request.
+ * Hosni Architecture Studio logotype. Rendered from an external SVG file so
+ * the artwork can be replaced without touching the code. The optional
+ * sublabel "ARCHITECTURE & INTERIOR DESIGN STUDIO" appears under the mark
+ * on request (used in the footer).
  */
 export default function Logo({ withSub = false, onClick }) {
   return (
     <Link
       to="/"
       onClick={onClick}
-      aria-label="Hosni Arc Studio — home"
+      aria-label="Hosni Architecture Studio — home"
       className="group inline-flex flex-col leading-none"
     >
-      <span className="flex items-start font-display font-extrabold tracking-[0.14em] text-intense-white">
-        <span className="text-2xl transition-colors duration-300 group-hover:text-silver">
-          HOSNI
-        </span>
-        <span className="ml-1 mt-0.5 text-[0.6rem] font-semibold text-silver">
-          &copy;
-        </span>
-      </span>
+      <img
+        src={logoSrc}
+        alt="Hosni Architecture Studio"
+        className="h-8 w-auto transition-opacity duration-300 group-hover:opacity-80"
+      />
       {withSub && (
         <span className="mt-2 text-[0.58rem] font-medium uppercase tracking-[0.28em] text-silver">
           Architecture &amp; Interior Design Studio
