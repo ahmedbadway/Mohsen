@@ -21,7 +21,7 @@ export default function ProjectCard({
   index = 0,
 }) {
   const [flipped, setFlipped] = useState(false)
-  const src = `${import.meta.env.BASE_URL}assets/${image}`
+  const src = `${import.meta.env.BASE_URL}assets/images/${image}`
 
   return (
     <motion.div
