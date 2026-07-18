@@ -86,12 +86,11 @@ export default function Home() {
       exit="exit"
       transition={pageTransition}
     >
-      {/* Fixed video background — stays put behind the whole page while the
-          content scrolls over it */}
-      <div className="fixed inset-0 -z-10" aria-hidden="true">
+      {/* Hero — full-screen video background, contained to this section */}
+      <section className="relative min-h-[100svh] overflow-hidden bg-coldblack">
         <video
           ref={videoRef}
-          className="h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
           src={heroVideo}
           poster={heroPoster}
           autoPlay
@@ -99,12 +98,10 @@ export default function Home() {
           loop
           playsInline
           preload="auto"
+          aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-coldblack via-coldblack/70 to-transparent" />
-      </div>
 
-      {/* Hero */}
-      <section className="relative min-h-[100svh]">
         <div className="relative mx-auto flex min-h-[100svh] max-w-content flex-col justify-center px-6 py-24">
           <motion.p
             {...fadeUp}
@@ -201,9 +198,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Company intro — translucent panel keeps the copy readable while the
-          video continues behind it */}
-      <section className="border-t hairline bg-coldblack/85">
+      {/* Company intro */}
+      <section className="border-t hairline">
         <div className="mx-auto grid max-w-content gap-10 px-6 py-24 md:grid-cols-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
