@@ -1,13 +1,14 @@
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'motion/react'
 import { ArrowRight } from '@phosphor-icons/react'
 import { pageVariants, pageTransition } from '../utils/motion.js'
 
-// Hero background video. Swap assets/hero-bg.mp4 with your own clip (same
-// name) — the poster image shows instantly and stays visible until the
-// video is loaded, or if no video file is present yet.
-const heroVideo = `${import.meta.env.BASE_URL}assets/hero-bg.mp4`
-const heroPoster = `${import.meta.env.BASE_URL}assets/hero-bg.svg`
+// Hero background video. Swap assets/videos/hero-bg.mp4 with your own clip
+// (same name) — the poster image shows instantly and stays visible until
+// the video is loaded, or if no video file is present yet.
+const heroVideo = `${import.meta.env.BASE_URL}assets/videos/hero-bg.mp4`
+const heroPoster = `${import.meta.env.BASE_URL}assets/images/hero-bg.svg`
 
 const fadeUp = {
   initial: { opacity: 0, y: 24 },
@@ -15,6 +16,20 @@ const fadeUp = {
 }
 
 export default function Home() {
+  const videoRef = useRef(null)
+
+  // iOS Safari only autoplays a video that is genuinely muted, and React
+  // does not always reflect the `muted` prop to the DOM attribute. Force it
+  // on the element and kick off playback once mounted.
+  useEffect(() => {
+    const video = videoRef.current
+    if (!video) return
+    video.muted = true
+    video.setAttribute('muted', '')
+    const play = video.play()
+    if (play && typeof play.catch === 'function') play.catch(() => {})
+  }, [])
+
   return (
     <motion.div
       variants={pageVariants}
@@ -23,9 +38,10 @@ export default function Home() {
       exit="exit"
       transition={pageTransition}
     >
-      {/* Hero */}
-      <section className="relative overflow-hidden">
+      {/* Hero — full-screen video background */}
+      <section className="relative min-h-[100svh] overflow-hidden bg-coldblack">
         <video
+          ref={videoRef}
           className="absolute inset-0 h-full w-full object-cover"
           src={heroVideo}
           poster={heroPoster}
@@ -33,12 +49,12 @@ export default function Home() {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-coldblack via-coldblack/70 to-transparent" />
 
-        <div className="relative mx-auto flex min-h-[88vh] max-w-content flex-col justify-center px-6 py-24">
+        <div className="relative mx-auto flex min-h-[100svh] max-w-content flex-col justify-center px-6 py-24">
           <motion.p
             {...fadeUp}
             transition={{ duration: 0.6, delay: 0.05 }}
