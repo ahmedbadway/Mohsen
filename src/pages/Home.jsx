@@ -36,16 +36,46 @@ export default function Home() {
   const videoRef = useRef(null)
   const reduceMotion = useReducedMotion()
 
-  // iOS Safari only autoplays a video that is genuinely muted, and React
-  // does not always reflect the `muted` prop to the DOM attribute. Force it
-  // on the element and kick off playback once mounted.
+  // iOS Safari quirks: it only autoplays a genuinely muted video (and React
+  // does not always reflect the `muted` prop to the DOM attribute), it
+  // sometimes ignores the `loop` attribute, and Low Power Mode pauses
+  // playback. Force muted, restart manually on `ended`, and resume whenever
+  // the tab becomes visible or the user touches the page.
   useEffect(() => {
     const video = videoRef.current
-    if (!video) return
+    if (!video) return undefined
+
     video.muted = true
     video.setAttribute('muted', '')
-    const play = video.play()
-    if (play && typeof play.catch === 'function') play.catch(() => {})
+
+    const tryPlay = () => {
+      const p = video.play()
+      if (p && typeof p.catch === 'function') p.catch(() => {})
+    }
+
+    const onEnded = () => {
+      video.currentTime = 0
+      tryPlay()
+    }
+
+    const onVisible = () => {
+      if (!document.hidden && video.paused) tryPlay()
+    }
+
+    const onTouch = () => {
+      if (video.paused) tryPlay()
+    }
+
+    video.addEventListener('ended', onEnded)
+    document.addEventListener('visibilitychange', onVisible)
+    window.addEventListener('touchstart', onTouch, { passive: true })
+    tryPlay()
+
+    return () => {
+      video.removeEventListener('ended', onEnded)
+      document.removeEventListener('visibilitychange', onVisible)
+      window.removeEventListener('touchstart', onTouch)
+    }
   }, [])
 
   return (
@@ -56,12 +86,11 @@ export default function Home() {
       exit="exit"
       transition={pageTransition}
     >
-      {/* Fixed video background — stays put behind the whole page while the
-          content scrolls over it */}
-      <div className="fixed inset-0 -z-10" aria-hidden="true">
+      {/* Hero — full-screen video background, contained to this section */}
+      <section className="relative min-h-[100svh] overflow-hidden bg-coldblack">
         <video
           ref={videoRef}
-          className="h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
           src={heroVideo}
           poster={heroPoster}
           autoPlay
@@ -69,12 +98,10 @@ export default function Home() {
           loop
           playsInline
           preload="auto"
+          aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-coldblack via-coldblack/70 to-transparent" />
-      </div>
 
-      {/* Hero */}
-      <section className="relative min-h-[100svh]">
         <div className="relative mx-auto flex min-h-[100svh] max-w-content flex-col justify-center px-6 py-24">
           <motion.p
             {...fadeUp}
@@ -171,9 +198,8 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Company intro — translucent panel keeps the copy readable while the
-          video continues behind it */}
-      <section className="border-t hairline bg-coldblack/85">
+      {/* Company intro */}
+      <section className="border-t hairline">
         <div className="mx-auto grid max-w-content gap-10 px-6 py-24 md:grid-cols-12">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
