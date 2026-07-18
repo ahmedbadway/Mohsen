@@ -36,16 +36,46 @@ export default function Home() {
   const videoRef = useRef(null)
   const reduceMotion = useReducedMotion()
 
-  // iOS Safari only autoplays a video that is genuinely muted, and React
-  // does not always reflect the `muted` prop to the DOM attribute. Force it
-  // on the element and kick off playback once mounted.
+  // iOS Safari quirks: it only autoplays a genuinely muted video (and React
+  // does not always reflect the `muted` prop to the DOM attribute), it
+  // sometimes ignores the `loop` attribute, and Low Power Mode pauses
+  // playback. Force muted, restart manually on `ended`, and resume whenever
+  // the tab becomes visible or the user touches the page.
   useEffect(() => {
     const video = videoRef.current
-    if (!video) return
+    if (!video) return undefined
+
     video.muted = true
     video.setAttribute('muted', '')
-    const play = video.play()
-    if (play && typeof play.catch === 'function') play.catch(() => {})
+
+    const tryPlay = () => {
+      const p = video.play()
+      if (p && typeof p.catch === 'function') p.catch(() => {})
+    }
+
+    const onEnded = () => {
+      video.currentTime = 0
+      tryPlay()
+    }
+
+    const onVisible = () => {
+      if (!document.hidden && video.paused) tryPlay()
+    }
+
+    const onTouch = () => {
+      if (video.paused) tryPlay()
+    }
+
+    video.addEventListener('ended', onEnded)
+    document.addEventListener('visibilitychange', onVisible)
+    window.addEventListener('touchstart', onTouch, { passive: true })
+    tryPlay()
+
+    return () => {
+      video.removeEventListener('ended', onEnded)
+      document.removeEventListener('visibilitychange', onVisible)
+      window.removeEventListener('touchstart', onTouch)
+    }
   }, [])
 
   return (
