@@ -78,7 +78,7 @@ export default function Profile() {
               What guides our work
             </h2>
             <p className="font-display text-sm font-semibold uppercase tracking-[0.28em] text-silver">
-              +6 years of practice
+              +9 years of practice
             </p>
           </div>
 
