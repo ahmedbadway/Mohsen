@@ -13,7 +13,17 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
+
+  // Transparent at the top of the page; fill with the glass surface once
+  // the user scrolls, so nav links stay legible over any content.
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   // Close the mobile menu on navigation.
   useEffect(() => {
@@ -36,7 +46,14 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="sticky top-0 z-30 border-b hairline bg-glass-strong backdrop-blur-md">
+      <header
+        className={[
+          'sticky top-0 z-30 transition-colors duration-300',
+          scrolled
+            ? 'border-b hairline bg-glass-strong backdrop-blur-md'
+            : 'border-b border-transparent bg-transparent',
+        ].join(' ')}
+      >
       <nav className="mx-auto flex h-20 max-w-content items-center justify-between px-6">
         <Logo />
 
