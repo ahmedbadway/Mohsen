@@ -131,7 +131,7 @@ export default function Contact() {
 
             <button
               type="submit"
-              className="group inline-flex w-fit items-center gap-2 bg-intense-white px-8 py-3.5 text-sm font-semibold text-coldblack transition-colors duration-300 hover:bg-silver"
+              className="group inline-flex w-fit items-center gap-2 bg-intense-white px-8 py-3.5 text-sm font-semibold text-coldblack transition duration-300 hover:bg-silver active:scale-[0.97]"
             >
               <WhatsappLogo size={18} weight="fill" />
               Send via WhatsApp
@@ -145,7 +145,7 @@ export default function Contact() {
             href={`https://wa.me/${WHATSAPP_NUMBER}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="group mb-8 inline-flex items-center gap-2 border hairline px-6 py-3.5 text-sm font-semibold text-intense-white transition-colors duration-300 hover:border-silver hover:text-silver"
+            className="group mb-8 inline-flex items-center gap-2 border hairline px-6 py-3.5 text-sm font-semibold text-intense-white transition duration-300 hover:border-silver hover:text-silver active:scale-[0.97]"
           >
             <WhatsappLogo size={18} weight="fill" className="text-silver" />
             Chat on WhatsApp

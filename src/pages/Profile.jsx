@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { Users, Handshake, Leaf } from '@phosphor-icons/react'
+import CountUp from '../components/CountUp.jsx'
 import DiagonalDecor from '../components/DiagonalDecor.jsx'
 import { pageVariants, pageTransition } from '../utils/motion.js'
 
@@ -78,7 +79,7 @@ export default function Profile() {
               What guides our work
             </h2>
             <p className="font-display text-sm font-semibold uppercase tracking-[0.28em] text-silver">
-              +9 years of practice
+              <CountUp to={9} prefix="+" className="tabular-nums" /> years of practice
             </p>
           </div>
 

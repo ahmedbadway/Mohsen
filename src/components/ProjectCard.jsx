@@ -27,6 +27,7 @@ export default function ProjectCard({
     <motion.div
       initial={{ opacity: 0, y: 28 }}
       whileInView={{ opacity: 1, y: 0 }}
+      whileHover={{ y: -6 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{
         delay: (index % 3) * 0.08,
@@ -45,7 +46,7 @@ export default function ProjectCard({
         }
         animate={{ rotateY: flipped ? 180 : 0 }}
         transition={{ type: 'spring', stiffness: 220, damping: 26 }}
-        className="relative block aspect-[4/5] w-full cursor-pointer text-left [transform-style:preserve-3d]"
+        className="group relative block aspect-[4/5] w-full cursor-pointer text-left [transform-style:preserve-3d]"
       >
         {/* Front */}
         <span className="absolute inset-0 flex flex-col overflow-hidden border hairline bg-jungle/10 [backface-visibility:hidden]">
@@ -53,7 +54,7 @@ export default function ProjectCard({
             src={src}
             alt={`${title} — project preview`}
             loading="lazy"
-            className="min-h-0 w-full flex-1 object-cover"
+            className="min-h-0 w-full flex-1 object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
           />
           <span className="flex items-center justify-between gap-3 p-6">
             <span className="flex flex-col">
