@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Hosni Arc Studio</title>
+    <script>
+      // GitHub Pages has no server-side rewrite, so a direct hit on a client
+      // route (e.g. /projects) lands here. Stash the requested path and hand
+      // control back to the app, which restores it on boot.
+      sessionStorage.setItem(
+        'redirectPath',
+        window.location.pathname + window.location.search + window.location.hash
+      )
+      window.location.replace('/')
+    </script>
+  </head>
+  <body></body>
+</html>

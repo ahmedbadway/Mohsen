@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import { Phone, EnvelopeSimple, MapPin, Globe, WhatsappLogo } from '@phosphor-icons/react'
 import { pageVariants, pageTransition } from '../utils/motion.js'
+import PageMeta from '../components/PageMeta.jsx'
 
 // Studio WhatsApp number in international format (no +, no leading 0) for
 // wa.me links. Source: +201005566336 → Egypt (20) + 1005566336.
@@ -33,8 +34,8 @@ const details = [
   {
     icon: Globe,
     label: 'Website',
-    value: 'ahmedbadway.github.io/Mohsen',
-    href: 'https://ahmedbadway.github.io/Mohsen/',
+    value: 'hosniarcstudio.com',
+    href: 'https://www.hosniarcstudio.com/',
   },
 ]
 
@@ -69,6 +70,12 @@ export default function Contact() {
       transition={pageTransition}
       className="mx-auto max-w-content px-6 py-20"
     >
+      <PageMeta
+        title="Contact — Hosni Architecture Studio"
+        description="Get in touch with Hosni Architecture Studio in Cairo. Call +201005566336, message us on WhatsApp, or email Hosniarcstudio@gmail.com."
+        path="/contact"
+      />
+
       <header className="max-w-2xl">
         <p className="text-xs font-semibold uppercase tracking-[0.32em] text-silver">
           Get in Touch

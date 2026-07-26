@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'motion/react'
 import { ArrowRight } from '@phosphor-icons/react'
 import CountUp from '../components/CountUp.jsx'
 import { pageVariants, pageTransition } from '../utils/motion.js'
+import PageMeta from '../components/PageMeta.jsx'
 
 // Hero background video. Swap assets/videos/hero-bg.mp4 with your own clip
 // (same name) — the poster image shows instantly and stays visible until
@@ -86,6 +87,12 @@ export default function Home() {
       exit="exit"
       transition={pageTransition}
     >
+      <PageMeta
+        title="Hosni Architecture Studio — Architecture & Interior Design, Cairo"
+        description="Hosni Architecture Studio designs exceptional spaces where luxury meets functionality — bespoke architecture and refined interiors in Cairo, Egypt."
+        path="/"
+      />
+
       {/* Hero — full-screen video background, contained to this section */}
       <section className="relative min-h-[100svh] overflow-hidden bg-coldblack">
         <video

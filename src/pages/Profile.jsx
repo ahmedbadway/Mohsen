@@ -3,6 +3,7 @@ import { Users, Handshake, Leaf } from '@phosphor-icons/react'
 import CountUp from '../components/CountUp.jsx'
 import DiagonalDecor from '../components/DiagonalDecor.jsx'
 import { pageVariants, pageTransition } from '../utils/motion.js'
+import PageMeta from '../components/PageMeta.jsx'
 
 const values = [
   {
@@ -34,6 +35,12 @@ export default function Profile() {
       exit="exit"
       transition={pageTransition}
     >
+      <PageMeta
+        title="About the Studio — Hosni Architecture Studio"
+        description="Nine years of practice shaping spaces that inspire. Our mission, values and approach to bespoke architecture and interior design."
+        path="/profile"
+      />
+
       {/* Intro */}
       <section className="relative overflow-hidden border-b hairline">
         <DiagonalDecor className="pointer-events-none absolute -right-20 top-0 h-full w-[520px] opacity-70" />
