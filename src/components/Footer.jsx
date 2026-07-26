@@ -20,8 +20,8 @@ const contact = [
   },
   {
     icon: Globe,
-    label: 'ahmedbadway.github.io/Mohsen',
-    href: 'https://ahmedbadway.github.io/Mohsen/',
+    label: 'hosniarcstudio.com',
+    href: 'https://www.hosniarcstudio.com/',
   },
 ]
 

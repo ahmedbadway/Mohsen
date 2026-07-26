@@ -33,8 +33,8 @@ const details = [
   {
     icon: Globe,
     label: 'Website',
-    value: 'ahmedbadway.github.io/Mohsen',
-    href: 'https://ahmedbadway.github.io/Mohsen/',
+    value: 'hosniarcstudio.com',
+    href: 'https://www.hosniarcstudio.com/',
   },
 ]
 
