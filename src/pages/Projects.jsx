@@ -1,6 +1,7 @@
 import { motion } from 'motion/react'
 import ProjectCard from '../components/ProjectCard.jsx'
 import { pageVariants, pageTransition } from '../utils/motion.js'
+import PageMeta from '../components/PageMeta.jsx'
 
 // Placeholder project data. SVGs live in /public/assets and are named
 // project-01..06.svg for easy manual replacement with real photos later.
@@ -78,6 +79,12 @@ export default function Projects() {
       transition={pageTransition}
       className="mx-auto max-w-content px-6 py-20"
     >
+      <PageMeta
+        title="Projects — Hosni Architecture Studio"
+        description="Selected architectural and interior projects by Hosni Architecture Studio: residential, commercial and interior work across Egypt."
+        path="/projects"
+      />
+
       <header className="max-w-2xl">
         <p className="text-xs font-semibold uppercase tracking-[0.32em] text-silver">
           Selected Work
