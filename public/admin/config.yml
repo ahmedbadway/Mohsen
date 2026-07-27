@@ -5,9 +5,8 @@ backend:
   name: github
   repo: ahmedbadway/Mohsen
   branch: main
-  # OAuth gateway for this repo. Replace the placeholder with your deployed
-  # Cloudflare Worker (or other OAuth proxy) URL. See README for setup.
-  base_url: https://REPLACE-WITH-YOUR-OAUTH-WORKER.example.workers.dev
+  # OAuth gateway for this repo (Cloudflare Worker). See oauth-worker/README.md.
+  base_url: https://hosni-cms-auth.ggtxk9bkbf.workers.dev
 
 # Uploaded images land here in the repo and are referenced from the site root.
 media_folder: public/assets/images
