@@ -27,9 +27,23 @@ const GITHUB_TOKEN = 'https://github.com/login/oauth/access_token'
 // the OAuth App, update this constant.
 const CLIENT_ID = 'Ov23liQRZuzuhF98If1y'
 
+// The client SECRET is sensitive, so it stays EMPTY here in the repo. If you
+// can't get the Cloudflare "Variables and Secrets" panel to apply, paste your
+// secret between the quotes below IN THE CLOUDFLARE CODE EDITOR ONLY (never
+// commit it). The env var GITHUB_CLIENT_SECRET, when set, takes precedence.
+const CLIENT_SECRET = ''
+
 // Resolve the client id: prefer an env override, else the constant above.
 function clientId(env) {
   return (env.GITHUB_CLIENT_ID && String(env.GITHUB_CLIENT_ID).trim()) || CLIENT_ID
+}
+
+// Resolve the client secret: prefer the env var, else the in-editor constant.
+function clientSecret(env) {
+  return (
+    (env.GITHUB_CLIENT_SECRET && String(env.GITHUB_CLIENT_SECRET).trim()) ||
+    CLIENT_SECRET
+  )
 }
 
 export default {
@@ -40,8 +54,8 @@ export default {
       return startAuth(url, env)
     }
     if (url.pathname === '/callback') {
-      // The secret is the only value that must come from the environment.
-      if (!env.GITHUB_CLIENT_SECRET || !String(env.GITHUB_CLIENT_SECRET).trim()) {
+      // The secret must come from the env var or the CLIENT_SECRET constant.
+      if (!clientSecret(env)) {
         return configError('GITHUB_CLIENT_SECRET')
       }
       return handleCallback(url, env)
@@ -92,7 +106,7 @@ async function handleCallback(url, env) {
     },
     body: JSON.stringify({
       client_id: clientId(env),
-      client_secret: env.GITHUB_CLIENT_SECRET,
+      client_secret: clientSecret(env),
       code,
     }),
   })
