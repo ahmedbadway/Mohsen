@@ -75,11 +75,12 @@ repo):
    Apps → New). Homepage URL: `https://www.hosniarcstudio.com`. Authorization
    callback URL: your gateway URL from step 2 + `/callback`. Note the
    **Client ID** and **Client Secret**.
-2. **Deploy an OAuth gateway.** Deploy a small free worker such as
-   [`sveltia-cms-auth`](https://github.com/sveltia/sveltia-cms-auth) (Cloudflare
-   Workers) or [`decap-proxy`](https://github.com/sterzim/decap-proxy). Set its
-   `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` env vars from step 1. The secret
-   lives only in the worker — never in this repo.
+2. **Deploy an OAuth gateway.** A ready-made Cloudflare Worker ships in
+   [`oauth-worker/`](oauth-worker/) — paste `worker.js` into a Cloudflare
+   Worker and set its `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` from step 1.
+   Full click-by-click steps (in Arabic) are in
+   [`oauth-worker/README.md`](oauth-worker/README.md). The secret lives only in
+   the worker — never in this repo.
 3. **Point the CMS at the gateway:** set `backend.base_url` in
    `public/admin/config.yml` to your deployed worker URL.
 4. **Give the client access:** add them as a collaborator on this repo so their
