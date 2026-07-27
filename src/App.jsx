@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import { useEffect, lazy, Suspense } from 'react'
 import { AnimatePresence } from 'motion/react'
 import Navbar from './components/Navbar.jsx'
@@ -30,6 +30,9 @@ export default function App() {
               <Route path="/projects" element={<Projects />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="/contact" element={<Contact />} />
+              {/* Unknown URL (typo, stale link): send them home rather than
+                  rendering an empty page. */}
+              <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>
         </AnimatePresence>

@@ -6,10 +6,14 @@ import './styles/index.css'
 
 // A deep link that hit public/404.html left the requested path behind for
 // us — restore it before rendering so the router opens the right page.
+// Only a single-slash relative path is accepted: "//host" or "https://host"
+// would resolve off-origin, so those are ignored rather than navigated to.
 const redirectPath = sessionStorage.getItem('redirectPath')
 if (redirectPath) {
   sessionStorage.removeItem('redirectPath')
-  if (redirectPath !== window.location.pathname) {
+  const isSameOriginPath =
+    redirectPath.startsWith('/') && !redirectPath.startsWith('//')
+  if (isSameOriginPath && redirectPath !== window.location.pathname) {
     window.history.replaceState(null, '', redirectPath)
   }
 }

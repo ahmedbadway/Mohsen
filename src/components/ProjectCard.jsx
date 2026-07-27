@@ -3,9 +3,8 @@ import { Images } from '@phosphor-icons/react'
 
 /**
  * Project card. Shows the cover image and title; tapping/clicking opens the
- * project's album (a lightbox with the full gallery and video) via the
- * `onOpen` callback. Fully keyboard-accessible (it's a button, so Enter/Space
- * activate it).
+ * project's photo album via the `onOpen` callback. Fully keyboard-accessible
+ * (it's a button, so Enter/Space activate it).
  */
 export default function ProjectCard({
   cover,
@@ -15,8 +14,6 @@ export default function ProjectCard({
   onOpen,
   index = 0,
 }) {
-  const src = cover
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 28 }}
@@ -37,7 +34,7 @@ export default function ProjectCard({
         className="group relative block aspect-[4/5] w-full cursor-pointer overflow-hidden border hairline bg-jungle/10 text-left"
       >
         <img
-          src={src}
+          src={cover}
           alt={`${title} — project cover`}
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.045]"
