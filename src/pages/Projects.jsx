@@ -1,39 +1,18 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { motion } from 'motion/react'
 import ProjectCard from '../components/ProjectCard.jsx'
 import ProjectAlbum from '../components/ProjectAlbum.jsx'
-import { assetUrl } from '../utils/asset.js'
+import projects from '../content/loadProjects.js'
 import { pageVariants, pageTransition } from '../utils/motion.js'
 import PageMeta from '../components/PageMeta.jsx'
 
-// Project content is edited through the CMS at /admin and stored in
-// public/content/projects.json, so the client can change titles, descriptions,
-// years and imagery without touching code. We fetch it at runtime here.
+// Project content lives in src/content/projects/<NN>/ — one folder per project
+// with an info.txt and its images. The client edits those directly on GitHub;
+// `loadProjects` assembles them at build time (see src/content/loadProjects.js).
 
 export default function Projects() {
-  const [projects, setProjects] = useState([])
-  const [loading, setLoading] = useState(true)
   // Index of the project whose album is open, or null when nothing is open.
   const [openIndex, setOpenIndex] = useState(null)
-
-  useEffect(() => {
-    let active = true
-    fetch(assetUrl('content/projects.json'))
-      .then((res) => res.json())
-      .then((data) => {
-        if (active) setProjects(data.projects || [])
-      })
-      .catch(() => {
-        if (active) setProjects([])
-      })
-      .finally(() => {
-        if (active) setLoading(false)
-      })
-    return () => {
-      active = false
-    }
-  }, [])
-
   const activeProject = openIndex === null ? null : projects[openIndex]
 
   return (
@@ -66,28 +45,10 @@ export default function Projects() {
       </header>
 
       <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {loading
-          ? Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                className="aspect-[4/5] w-full animate-pulse border hairline bg-jungle/20"
-              />
-            ))
-          : projects.map((p, i) => (
-              <ProjectCard
-                key={p.slug}
-                index={i}
-                onOpen={setOpenIndex}
-                {...p}
-              />
-            ))}
+        {projects.map((p, i) => (
+          <ProjectCard key={p.slug} index={i} onOpen={setOpenIndex} {...p} />
+        ))}
       </div>
-
-      {!loading && projects.length === 0 && (
-        <p className="mt-10 text-sm text-silver">
-          Projects are being updated. Please check back shortly.
-        </p>
-      )}
 
       <ProjectAlbum
         project={activeProject}

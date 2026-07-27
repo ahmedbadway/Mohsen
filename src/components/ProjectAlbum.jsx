@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { CaretLeft, CaretRight, X, Play } from '@phosphor-icons/react'
-import { assetUrl } from '../utils/asset.js'
 
 /**
  * ProjectAlbum — a lightbox that opens over the Projects grid and lets the
@@ -20,13 +19,13 @@ export default function ProjectAlbum({ project, onClose }) {
   // hooks below can run unconditionally even when no project is open.
   const media = project
     ? [
-        ...project.gallery.map((file, i) => ({
+        ...project.gallery.map((url, i) => ({
           type: 'image',
-          src: assetUrl(file),
+          src: url,
           label: `Photo ${i + 1}`,
         })),
         ...(project.video
-          ? [{ type: 'video', src: assetUrl(project.video), label: 'Film' }]
+          ? [{ type: 'video', src: project.video, label: 'Film' }]
           : []),
       ]
     : []
