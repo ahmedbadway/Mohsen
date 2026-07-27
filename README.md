@@ -53,47 +53,40 @@ To change the destination number, edit `WHATSAPP_NUMBER` in
 `src/components/Footer.jsx`). Use international format with no `+` and no
 leading `0` — e.g. `+20 010 1607 0633` becomes `201016070633`.
 
-## Editing project content
+## Editing project content (no code, edit on GitHub)
 
-Project content (titles, categories, years, descriptions, cover images,
-album galleries and video) lives in **`public/content/projects.json`** and is
-rendered on the Projects page at runtime — no code changes needed to update it.
+Every project is a folder under **`src/content/projects/`** — one folder per
+project (`01`, `02`, …). Each folder holds its own images and a small text file:
 
-There are two ways to edit it:
+```
+src/content/projects/01/
+  info.txt      ← title, category, year, description
+  cover.svg     ← the image shown on the card
+  01.svg …      ← album images (any name except cover.*)
+  video.mp4     ← optional walkthrough video
+```
 
-### 1. The `/admin` panel (for the client)
+`info.txt` is plain text — just edit the value after each colon:
 
-The site ships with **Decap CMS** at `/admin`. The client signs in with GitHub
-and edits every project through a simple form (including drag-and-drop image
-uploads); saving commits to `main` and the live site rebuilds automatically.
+```
+Title: Living Room 2023
+Category: Residential
+Year: 2023
+Description: A short paragraph about the project.
+```
 
-**One-time setup** (required before the panel can sign in — GitHub Pages has no
-server, so the login step runs on a small free OAuth gateway scoped to this
-repo):
+**To change a project** on github.com: open its folder, click `info.txt`, press
+the ✏️ pencil, edit the text, and **Commit changes**. To swap an image, open the
+folder, delete the old file and **Add file → Upload files** with the same name
+(`cover.svg`, `01.svg`, …). To add a whole new project, create a new numbered
+folder with the same files inside.
 
-1. **Create a GitHub OAuth App** (GitHub → Settings → Developer settings → OAuth
-   Apps → New). Homepage URL: `https://www.hosniarcstudio.com`. Authorization
-   callback URL: your gateway URL from step 2 + `/callback`. Note the
-   **Client ID** and **Client Secret**.
-2. **Deploy an OAuth gateway.** A ready-made Cloudflare Worker ships in
-   [`oauth-worker/`](oauth-worker/) — paste `worker.js` into a Cloudflare
-   Worker and set its `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` from step 1.
-   Full click-by-click steps (in Arabic) are in
-   [`oauth-worker/README.md`](oauth-worker/README.md). The secret lives only in
-   the worker — never in this repo.
-3. **Point the CMS at the gateway:** set `backend.base_url` in
-   `public/admin/config.yml` to your deployed worker URL.
-4. **Give the client access:** add them as a collaborator on this repo so their
-   GitHub login can commit.
+The site rebuilds and updates automatically within a minute or two — no login,
+no CMS, no external services.
 
-The client then opens `https://www.hosniarcstudio.com/admin`.
-
-### 2. Editing the JSON directly
-
-Prefer no CMS? Edit `public/content/projects.json` from the GitHub web editor.
-Image/video paths are site-root absolute (e.g. `/assets/images/project-01/
-cover.svg`); each project owns a folder under `public/assets/images/<slug>/`.
-Replace a placeholder by dropping a real file in with the same path.
+> Tip: images can be `.svg`, `.jpg`, `.png` or `.webp`. The cover is whichever
+> file is named `cover.*`; every other image becomes an album slide (sorted by
+> filename). Drop a `video.mp4` in the folder to add a film slide.
 
 ## Deploying to GitHub Pages
 
