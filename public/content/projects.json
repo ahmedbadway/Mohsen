@@ -1,0 +1,100 @@
+{
+  "projects": [
+    {
+      "slug": "project-01",
+      "title": "Living Room 2023",
+      "category": "Residential",
+      "year": "2023",
+      "details": "A residential lounge organised around a single axis of daylight. Warm timber, matte stone and layered lighting create a calm, tactile room that shifts character from morning to evening.",
+      "cover": "/assets/images/project-01/cover.svg",
+      "gallery": [
+        "/assets/images/project-01/01.svg",
+        "/assets/images/project-01/02.svg",
+        "/assets/images/project-01/03.svg",
+        "/assets/images/project-01/04.svg",
+        "/assets/images/project-01/05.svg"
+      ],
+      "video": "/assets/videos/hero-bg.mp4"
+    },
+    {
+      "slug": "project-02",
+      "title": "Coastal Villa",
+      "category": "Residential",
+      "year": "2022",
+      "details": "Open-plan living volumes step down toward the shoreline, framing the horizon through full-height glazing. Interior and landscape are treated as one continuous material field.",
+      "cover": "/assets/images/project-02/cover.svg",
+      "gallery": [
+        "/assets/images/project-02/01.svg",
+        "/assets/images/project-02/02.svg",
+        "/assets/images/project-02/03.svg",
+        "/assets/images/project-02/04.svg",
+        "/assets/images/project-02/05.svg"
+      ],
+      "video": "/assets/videos/hero-bg.mp4"
+    },
+    {
+      "slug": "project-03",
+      "title": "Studio Loft",
+      "category": "Interior",
+      "year": "2023",
+      "details": "A compact live-work loft planned around a central spine that separates focus from rest. Built-in joinery keeps the footprint efficient without sacrificing openness.",
+      "cover": "/assets/images/project-03/cover.svg",
+      "gallery": [
+        "/assets/images/project-03/01.svg",
+        "/assets/images/project-03/02.svg",
+        "/assets/images/project-03/03.svg",
+        "/assets/images/project-03/04.svg",
+        "/assets/images/project-03/05.svg"
+      ],
+      "video": "/assets/videos/hero-bg.mp4"
+    },
+    {
+      "slug": "project-04",
+      "title": "Boutique Retail",
+      "category": "Commercial",
+      "year": "2024",
+      "details": "A boutique interior where geometric display volumes recede so the product reads first. Concealed lighting and a restrained palette give the space a quiet, gallery-like presence.",
+      "cover": "/assets/images/project-04/cover.svg",
+      "gallery": [
+        "/assets/images/project-04/01.svg",
+        "/assets/images/project-04/02.svg",
+        "/assets/images/project-04/03.svg",
+        "/assets/images/project-04/04.svg",
+        "/assets/images/project-04/05.svg"
+      ],
+      "video": "/assets/videos/hero-bg.mp4"
+    },
+    {
+      "slug": "project-05",
+      "title": "Garden Residence",
+      "category": "Residential",
+      "year": "2022",
+      "details": "A family home layered around planted courtyards that pull shade and cross-ventilation deep into the plan — a passive response to the local climate that keeps interiors cool.",
+      "cover": "/assets/images/project-05/cover.svg",
+      "gallery": [
+        "/assets/images/project-05/01.svg",
+        "/assets/images/project-05/02.svg",
+        "/assets/images/project-05/03.svg",
+        "/assets/images/project-05/04.svg",
+        "/assets/images/project-05/05.svg"
+      ],
+      "video": "/assets/videos/hero-bg.mp4"
+    },
+    {
+      "slug": "project-06",
+      "title": "Office Interior",
+      "category": "Commercial",
+      "year": "2023",
+      "details": "A workplace interior tuned for long hours and quiet collaboration. Acoustic zoning, soft task lighting and biophilic touches support focus across an open floorplate.",
+      "cover": "/assets/images/project-06/cover.svg",
+      "gallery": [
+        "/assets/images/project-06/01.svg",
+        "/assets/images/project-06/02.svg",
+        "/assets/images/project-06/03.svg",
+        "/assets/images/project-06/04.svg",
+        "/assets/images/project-06/05.svg"
+      ],
+      "video": "/assets/videos/hero-bg.mp4"
+    }
+  ]
+}

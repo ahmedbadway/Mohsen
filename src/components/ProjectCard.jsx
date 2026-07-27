@@ -1,5 +1,6 @@
 import { motion } from 'motion/react'
 import { Images } from '@phosphor-icons/react'
+import { assetUrl } from '../utils/asset.js'
 
 /**
  * Project card. Shows the cover image and title; tapping/clicking opens the
@@ -8,7 +9,6 @@ import { Images } from '@phosphor-icons/react'
  * activate it).
  */
 export default function ProjectCard({
-  slug,
   cover,
   title,
   category,
@@ -16,7 +16,7 @@ export default function ProjectCard({
   onOpen,
   index = 0,
 }) {
-  const src = `${import.meta.env.BASE_URL}assets/images/${slug}/${cover}`
+  const src = assetUrl(cover)
 
   return (
     <motion.div
