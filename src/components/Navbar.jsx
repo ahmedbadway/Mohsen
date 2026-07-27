@@ -3,6 +3,7 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'motion/react'
 import { List, X } from '@phosphor-icons/react'
 import Logo from './Logo.jsx'
+import { lockScroll, unlockScroll } from '../utils/scrollLock.js'
 
 const links = [
   { to: '/', label: 'Home', end: true },
@@ -32,10 +33,9 @@ export default function Navbar() {
 
   // Lock body scroll while the mobile menu is open.
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
-    return () => {
-      document.body.style.overflow = ''
-    }
+    if (!open) return undefined
+    lockScroll()
+    return unlockScroll
   }, [open])
 
   const linkClass = ({ isActive }) =>

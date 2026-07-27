@@ -63,7 +63,6 @@ src/content/projects/01/
   info.txt      ← title, category, year, description
   cover.svg     ← the image shown on the card
   01.svg …      ← album images (any name except cover.*)
-  video.mp4     ← optional walkthrough video
 ```
 
 `info.txt` is plain text — just edit the value after each colon:
@@ -86,7 +85,7 @@ no CMS, no external services.
 
 > Tip: images can be `.svg`, `.jpg`, `.png` or `.webp`. The cover is whichever
 > file is named `cover.*`; every other image becomes an album slide (sorted by
-> filename). Drop a `video.mp4` in the folder to add a film slide.
+> filename).
 
 ## Deploying to GitHub Pages
 
