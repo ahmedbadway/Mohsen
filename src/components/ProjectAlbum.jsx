@@ -190,7 +190,7 @@ export default function ProjectAlbum({ project, onClose }) {
                   {project.title}
                 </h2>
                 <p className="mt-4 text-sm leading-relaxed text-silver">
-                  {project.details || project.description}
+                  {project.details}
                 </p>
               </div>
               <p className="text-xs uppercase tracking-[0.2em] text-feldgrau">
