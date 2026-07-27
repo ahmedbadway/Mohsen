@@ -7,9 +7,10 @@
  * a token and hands it back to the CMS popup. It is scoped to this one repo by
  * the OAuth App you create — no repo data or secrets live here.
  *
- * Required environment variables (set in the Cloudflare dashboard, NOT here):
- *   GITHUB_CLIENT_ID      — from your GitHub OAuth App
+ * The Client ID is public and lives in the CLIENT_ID constant below.
+ * Only the secret must be set in the Cloudflare dashboard (NOT here):
  *   GITHUB_CLIENT_SECRET  — from your GitHub OAuth App
+ * (GITHUB_CLIENT_ID is also honoured as an optional env override.)
  *
  * Routes:
  *   /            → health check
@@ -20,41 +21,39 @@
 const GITHUB_AUTHORIZE = 'https://github.com/login/oauth/authorize'
 const GITHUB_TOKEN = 'https://github.com/login/oauth/access_token'
 
+// The GitHub OAuth App Client ID is public (it appears in the authorize URL),
+// so it lives in code — no env var needed for it. Only the client secret is
+// sensitive and must come from the Cloudflare environment. If you ever rotate
+// the OAuth App, update this constant.
+const CLIENT_ID = 'Ov23liQRZuzuhF98If1y'
+
+// Resolve the client id: prefer an env override, else the constant above.
+function clientId(env) {
+  return (env.GITHUB_CLIENT_ID && String(env.GITHUB_CLIENT_ID).trim()) || CLIENT_ID
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url)
 
     if (url.pathname === '/auth') {
-      const missing = missingEnv(env)
-      if (missing) return configError(missing)
       return startAuth(url, env)
     }
     if (url.pathname === '/callback') {
-      const missing = missingEnv(env)
-      if (missing) return configError(missing)
+      // The secret is the only value that must come from the environment.
+      if (!env.GITHUB_CLIENT_SECRET || !String(env.GITHUB_CLIENT_SECRET).trim()) {
+        return configError('GITHUB_CLIENT_SECRET')
+      }
       return handleCallback(url, env)
     }
-    const missing = missingEnv(env)
-    const status = missing
-      ? `Not configured — missing ${missing}. Set it in the Cloudflare dashboard (Settings → Variables and Secrets) and redeploy.`
-      : 'OAuth gateway is running.'
-    return new Response(status, {
+    return new Response('OAuth gateway is running.', {
       status: 200,
       headers: { 'content-type': 'text/plain; charset=utf-8' },
     })
   },
 }
 
-// Return a comma-separated list of any required env vars that are missing or
-// blank, or null when everything is present.
-function missingEnv(env) {
-  const names = ['GITHUB_CLIENT_ID', 'GITHUB_CLIENT_SECRET']
-  const missing = names.filter((n) => !env[n] || !String(env[n]).trim())
-  return missing.length ? missing.join(', ') : null
-}
-
-// Fail loudly with a clear message instead of forwarding an undefined
-// client_id to GitHub (which returns an opaque 404).
+// Fail loudly with a clear message instead of continuing with a missing value.
 function configError(missing) {
   return new Response(
     `Configuration error: missing environment variable(s): ${missing}.\n\n` +
@@ -68,7 +67,7 @@ function configError(missing) {
 function startAuth(url, env) {
   const redirectUri = `${url.origin}/callback`
   const params = new URLSearchParams({
-    client_id: env.GITHUB_CLIENT_ID,
+    client_id: clientId(env),
     redirect_uri: redirectUri,
     scope: 'repo,user',
     // Opaque anti-CSRF value echoed back by GitHub.
@@ -92,7 +91,7 @@ async function handleCallback(url, env) {
       'user-agent': 'decap-cms-oauth-gateway',
     },
     body: JSON.stringify({
-      client_id: env.GITHUB_CLIENT_ID,
+      client_id: clientId(env),
       client_secret: env.GITHUB_CLIENT_SECRET,
       code,
     }),
