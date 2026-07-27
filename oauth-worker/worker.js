@@ -25,16 +25,43 @@ export default {
     const url = new URL(request.url)
 
     if (url.pathname === '/auth') {
+      const missing = missingEnv(env)
+      if (missing) return configError(missing)
       return startAuth(url, env)
     }
     if (url.pathname === '/callback') {
+      const missing = missingEnv(env)
+      if (missing) return configError(missing)
       return handleCallback(url, env)
     }
-    return new Response('OAuth gateway is running.', {
+    const missing = missingEnv(env)
+    const status = missing
+      ? `Not configured — missing ${missing}. Set it in the Cloudflare dashboard (Settings → Variables and Secrets) and redeploy.`
+      : 'OAuth gateway is running.'
+    return new Response(status, {
       status: 200,
       headers: { 'content-type': 'text/plain; charset=utf-8' },
     })
   },
+}
+
+// Return a comma-separated list of any required env vars that are missing or
+// blank, or null when everything is present.
+function missingEnv(env) {
+  const names = ['GITHUB_CLIENT_ID', 'GITHUB_CLIENT_SECRET']
+  const missing = names.filter((n) => !env[n] || !String(env[n]).trim())
+  return missing.length ? missing.join(', ') : null
+}
+
+// Fail loudly with a clear message instead of forwarding an undefined
+// client_id to GitHub (which returns an opaque 404).
+function configError(missing) {
+  return new Response(
+    `Configuration error: missing environment variable(s): ${missing}.\n\n` +
+      'Add them in the Cloudflare dashboard under this Worker → Settings →\n' +
+      'Variables and Secrets, then click Deploy. Names must match exactly.',
+    { status: 500, headers: { 'content-type': 'text/plain; charset=utf-8' } }
+  )
 }
 
 // Step 1: bounce the user to GitHub's consent screen.
