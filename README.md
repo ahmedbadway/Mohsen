@@ -53,12 +53,47 @@ To change the destination number, edit `WHATSAPP_NUMBER` in
 `src/components/Footer.jsx`). Use international format with no `+` and no
 leading `0` — e.g. `+20 010 1607 0633` becomes `201016070633`.
 
-## Replacing project images
+## Editing project content
 
-Placeholder SVGs live in `public/assets/` and are named `project-01.svg`
-… `project-06.svg` (plus `hero-bg.svg`). Drop real images in with the same
-filenames — or update the `image` fields in `src/pages/Projects.jsx` — to
-swap them in.
+Project content (titles, categories, years, descriptions, cover images,
+album galleries and video) lives in **`public/content/projects.json`** and is
+rendered on the Projects page at runtime — no code changes needed to update it.
+
+There are two ways to edit it:
+
+### 1. The `/admin` panel (for the client)
+
+The site ships with **Decap CMS** at `/admin`. The client signs in with GitHub
+and edits every project through a simple form (including drag-and-drop image
+uploads); saving commits to `main` and the live site rebuilds automatically.
+
+**One-time setup** (required before the panel can sign in — GitHub Pages has no
+server, so the login step runs on a small free OAuth gateway scoped to this
+repo):
+
+1. **Create a GitHub OAuth App** (GitHub → Settings → Developer settings → OAuth
+   Apps → New). Homepage URL: `https://www.hosniarcstudio.com`. Authorization
+   callback URL: your gateway URL from step 2 + `/callback`. Note the
+   **Client ID** and **Client Secret**.
+2. **Deploy an OAuth gateway.** A ready-made Cloudflare Worker ships in
+   [`oauth-worker/`](oauth-worker/) — paste `worker.js` into a Cloudflare
+   Worker and set its `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` from step 1.
+   Full click-by-click steps (in Arabic) are in
+   [`oauth-worker/README.md`](oauth-worker/README.md). The secret lives only in
+   the worker — never in this repo.
+3. **Point the CMS at the gateway:** set `backend.base_url` in
+   `public/admin/config.yml` to your deployed worker URL.
+4. **Give the client access:** add them as a collaborator on this repo so their
+   GitHub login can commit.
+
+The client then opens `https://www.hosniarcstudio.com/admin`.
+
+### 2. Editing the JSON directly
+
+Prefer no CMS? Edit `public/content/projects.json` from the GitHub web editor.
+Image/video paths are site-root absolute (e.g. `/assets/images/project-01/
+cover.svg`); each project owns a folder under `public/assets/images/<slug>/`.
+Replace a placeholder by dropping a real file in with the same path.
 
 ## Deploying to GitHub Pages
 

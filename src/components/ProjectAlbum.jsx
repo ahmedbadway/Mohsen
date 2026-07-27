@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'motion/react'
 import { CaretLeft, CaretRight, X, Play } from '@phosphor-icons/react'
+import { assetUrl } from '../utils/asset.js'
 
 /**
  * ProjectAlbum — a lightbox that opens over the Projects grid and lets the
@@ -17,19 +18,16 @@ export default function ProjectAlbum({ project, onClose }) {
 
   // Build the ordered media list: gallery images, then the video. Guarded so
   // hooks below can run unconditionally even when no project is open.
-  const base = import.meta.env.BASE_URL
   const media = project
     ? [
         ...project.gallery.map((file, i) => ({
           type: 'image',
-          src: `${base}assets/images/${project.slug}/${file}`,
+          src: assetUrl(file),
           label: `Photo ${i + 1}`,
         })),
-        {
-          type: 'video',
-          src: `${base}assets/videos/${project.video}`,
-          label: 'Film',
-        },
+        ...(project.video
+          ? [{ type: 'video', src: assetUrl(project.video), label: 'Film' }]
+          : []),
       ]
     : []
 
